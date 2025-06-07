@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bula Resumida</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+</head>
+<body>
+<a href="index.html" class="voltar-seta" title="Voltar para a página inicial">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+    <line x1="19" y1="12" x2="5" y2="12"></line>
+    <polyline points="12 19 5 12 12 5"></polyline>
+  </svg>
+</a>
+  <h1>Bula Resumida</h1>
+  <p style="text-align: center;">Informações simplificadas sobre medicamentos.</p>
+
+  <div style="margin: 2rem 0;">
+    <input type="text" id="busca" placeholder="Buscar medicamento..." />
+  </div>
+
+  <div id="categorias">
+    <h3>Categorias</h3>
+    <div class="categoria-btns">
+      <button data-cat="todos" class="ativo">Todos</button>
+      <button data-cat="antibióticos">Antibióticos</button>
+      <button data-cat="anti-inflamatórios">Anti-inflamatórios</button>
+      <button data-cat="analgésicos">Analgésicos</button>
+      <button data-cat="relaxantes">Relaxantes-Musculares</button>
+    </div>
+  </div>
+
+  <p id="contador"></p>
+
+  <div id="medicamentos" class="grid"></div>
+
+  <script src="js/medicamentos.js"></script>
+  <script src="js/bula.js"></script>
+</body>
+</html>

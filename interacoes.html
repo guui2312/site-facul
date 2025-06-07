@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo de Interação Medicamentosa</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="verificar-interacoes.html" class="voltar-seta" title="Voltar para a página inicial">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+    <line x1="19" y1="12" x2="5" y2="12"></line>
+    <polyline points="12 19 5 12 12 5"></polyline>
+  </svg>
+</a>
+<div id="jogo-container" class="card">
+  <h2>Jogo de Interação Medicamentosa</h2>
+  <p>Teste seus conhecimentos sobre os riscos de interações entre medicamentos.</p>
+
+  <div id="jogo-pergunta" style="margin: 20px 0; font-weight: bold;"></div>
+
+  <div id="jogo-opcoes" style="display: flex; flex-direction: column;"></div>
+
+  <div id="jogo-feedback" style="margin-top: 20px;"></div>
+
+  <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+    <div id="jogo-progresso" style="font-size: 14px;"></div>
+    <button id="btn-proxima" disabled>Próxima</button>
+  </div>
+</div>
+
+<script>
+  // MOCK: substitua isso com seus dados reais de InteracaoMedicamentosa.list()
+  const InteracaoMedicamentosa = {
+    list: async () => [
+      { medicamento1: "Paracetamol", medicamento2: "Ibuprofeno", severidade: "alta", descricao: "Pode causar danos renais em uso prolongado." },
+      { medicamento1: "Aspirina", medicamento2: "Varfarina", severidade: "perigosa", descricao: "Aumenta o risco de sangramento grave." },
+      { medicamento1: "Omeprazol", medicamento2: "Clopidogrel", severidade: "média", descricao: "Reduz a eficácia do clopidogrel." },
+      { medicamento1: "Dipirona", medicamento2: "Álcool", severidade: "baixa", descricao: "Pode causar sonolência aumentada." },
+      { medicamento1: "Ibuprofeno", medicamento2: "Dipirona", severidade: "média", descricao: "risco de toxicidade gastrointestinal e renal." },
+      { medicamento1: "Diclofenaco", medicamento2: "Dipirona", severidade: "alta", descricao: "potencializa estresse oxidativo e agride a mucosa gástrica." },
+      { medicamento1: "Carisoprodol", medicamento2: "Tramadol", severidade: "alta", descricao: "pode causar sedação profunda, depressão respiratória ou coma." },
+      { medicamento1: "Dipirona", medicamento2: "Fluoxetina", severidade: "média", descricao: "aumenta risco de sangramento e pode reduzir eficácia da fluoxetina." },
+      { medicamento1: "Ciprofloxacino", medicamento2: "Tramadol", severidade: "alta", descricao: "aumenta risco de convulsões, especialmente em pacientes vulneráveis." },
+      { medicamento1: "Azitromicina", medicamento2: "Tramadol", severidade: "média", descricao: "pode provocar arritmias cardíacas graves." },
+      { medicamento1: "Celecoxibe", medicamento2: "Metronidazol", severidade: "média", descricao: "metronidazol eleva níveis plasmáticos de celecoxibe e seus efeitos adversos." },
+      { medicamento1: "Meloxicam", medicamento2: "Ciprofloxacino", severidade: "média", descricao: "ambos podem afetar o sistema nervoso central." },
+      { medicamento1: "Dipirona", medicamento2: "Ciprofloxacino", severidade: "média", descricao: "pode elevar risco de convulsões e efeitos adversos do ciprofloxacino." },
+      { medicamento1: "Ibuprofeno", medicamento2: "Omeprazol", severidade: "baixa", descricao: "embora não haja interação direta, o omeprazol pode ser prescrito junto ao ibuprofeno para reduzir riscos gastrointestinais." }
+
+    ]
+  };
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    const perguntas = await InteracaoMedicamentosa.list();
+    const perguntaEl = document.getElementById("jogo-pergunta");
+    const opcoesEl = document.getElementById("jogo-opcoes");
+    const feedbackEl = document.getElementById("jogo-feedback");
+    const btnProxima = document.getElementById("btn-proxima");
+    const progressoEl = document.getElementById("jogo-progresso");
+
+    let pontuacao = 0;
+    let total = 0;
+    let atual = null;
+
+    const severidades = ["baixa", "média", "alta", "perigosa"];
+
+    function novaPergunta() {
+      feedbackEl.innerHTML = "";
+      btnProxima.disabled = true;
+      opcoesEl.innerHTML = "";
+
+      const i = Math.floor(Math.random() * perguntas.length);
+      atual = perguntas[i];
+
+      const opcoesErradas = severidades.filter(s => s !== atual.severidade).sort(() => Math.random() - 0.5).slice(0, 3);
+      const todas = [...opcoesErradas, atual.severidade].sort(() => Math.random() - 0.5);
+
+      perguntaEl.textContent = `Qual é o nível de severidade da interação entre: ${atual.medicamento1} + ${atual.medicamento2}`;
+
+      todas.forEach(opcao => {
+        const btn = document.createElement("button");
+        btn.className = "opcao";
+        btn.textContent = opcao;
+
+        btn.onclick = () => {
+          total++;
+          if (opcao === atual.severidade) {
+            pontuacao++;
+            btn.style.background = "#d4edda";
+            feedbackEl.innerHTML = `<p style="color: green;"><strong>Correto!</strong> ${atual.descricao}</p>`;
+          } else {
+            btn.style.background = "#f8d7da";
+            feedbackEl.innerHTML = `<p style="color: red;"><strong>Errado.</strong> A severidade correta era "${atual.severidade}".<br>${atual.descricao}</p>`;
+          }
+
+          document.querySelectorAll(".opcao").forEach(b => b.disabled = true);
+          progressoEl.textContent = `Pontuação: ${pontuacao}/${total} (${Math.round((pontuacao / total) * 100)}%)`;
+          btnProxima.disabled = false;
+        };
+
+        opcoesEl.appendChild(btn);
+      });
+    }
+
+    btnProxima.onclick = () => novaPergunta();
+
+    if (perguntas.length > 0) {
+      novaPergunta();
+    } else {
+      document.getElementById("jogo-container").innerHTML = "<p>Não há interações medicamentosas suficientes para jogar.</p>";
+    }
+  });
+  
+</script>
+<script src="js/interacoes_app.js"></script>
+<script src="js/jogo_interacao.js"></script>
+
+</body>
+</html>

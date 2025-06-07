@@ -1,0 +1,39 @@
+{
+  "name": "CasoReal",
+  "type": "object",
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "description": "Título do relato"
+    },
+    "relato": {
+      "type": "string",
+      "description": "Relato completo do caso"
+    },
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "midiático",
+        "pessoal"
+      ],
+      "description": "Tipo do caso (midiático ou pessoal)"
+    },
+    "medicamentos_envolvidos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Medicamentos envolvidos no caso"
+    },
+    "data_relato": {
+      "type": "string",
+      "format": "date",
+      "description": "Data do relato"
+    }
+  },
+  "required": [
+    "titulo",
+    "relato",
+    "tipo"
+  ]
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Casos Reais</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="index.html" class="voltar-seta" title="Voltar para a página inicial">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+    <line x1="19" y1="12" x2="5" y2="12"></line>
+    <polyline points="12 19 5 12 12 5"></polyline>
+  </svg>
+</a>
+  <h1>Casos Reais</h1>
+  <p>Explore relatos reais sobre automedicação.</p>
+
+  <input type="text" id="busca" placeholder="Buscar casos..." style="width: 60%; padding: 8px;" />
+  <select id="filtro-tipo" style="padding: 8px; margin-left: 10px;">
+    <option value="todos">Todos</option>
+    <option value="midiático">Midiáticos</option>
+    <option value="pessoal">Pessoais</option>
+  </select>
+
+  <div id="casos-container" style="margin-top: 20px;"></div>
+
+  <div id="servicos-apoio" style="margin-top: 40px; background: #fff; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+  <div style="padding: 16px; border-bottom: 1px solid #eee;">
+    <h3 style="margin: 0;">Serviços de Apoio</h3>
+  </div>
+  <div id="servicos-lista"></div>
+</div>
+
+  <button id="btnAbrirModal">➕ Compartilhar Relato</button>
+
+  <div id="modalRelato" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%;">
+      <h3>Compartilhar Relato Pessoal</h3>
+      <p>Compartilhe sua experiência com automedicação para ajudar outras pessoas.</p>
+
+      <div>
+        <label for="relatoTitulo">Título *</label><br/>
+        <input id="relatoTitulo" type="text" style="width: 100%; padding: 6px;" />
+      </div>
+
+      <div>
+        <label for="relatoTexto">Seu relato *</label><br/>
+        <textarea id="relatoTexto" rows="5" style="width: 100%; padding: 6px;"></textarea>
+      </div>
+
+      <div>
+        <label for="relatoMeds">Medicamentos envolvidos</label><br/>
+        <input id="relatoMeds" type="text" style="width: 100%; padding: 6px;" placeholder="Ex: Dipirona, Ibuprofeno" />
+      </div>
+
+      <p id="erroRelato" style="color: red; display: none;"></p>
+
+      <div style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 10px;">
+        <button id="btnCancelar">Cancelar</button>
+        <button id="btnEnviar" style="background: #2563eb; color: white; border: none; padding: 6px 12px;">Enviar Relato</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agora os scripts estão no lugar certo -->
+  <script src="js/casos.js"></script>
+  <script src="js/casos_app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interação Medicamentosa</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-conteudo {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .modal-conteudo h3 {
+      margin-top: 0;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="voltar-seta" title="Voltar para a página inicial">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+    <line x1="19" y1="12" x2="5" y2="12"></line>
+    <polyline points="12 19 5 12 12 5"></polyline>
+  </svg>
+</a>
+
+  <div class="container">
+    <h1>Interação Medicamentosa</h1>
+    <p class="subtitulo">Verifique as possíveis interações entre medicamentos e entenda os riscos associados.</p>
+
+    <div class="alerta">
+      <span class="icone">&#9888;</span>
+      <div>
+        <strong>Atenção</strong><br>
+        As informações disponibilizadas nesta seção são apenas para fins educativos. Consulte sempre um profissional de saúde qualificado antes de combinar medicamentos, pois interações podem variar de acordo com dosagens, condições médicas individuais e outros fatores.
+      </div>
+    </div>
+
+    <div class="abas">
+      <button class="aba ativa">&#128202; Tabela de Interações</button>
+      <a href="interacoes.html"> <button class="aba">&#127918;Jogo de Interação</button></a>
+    </div>
+
+    <div class="filtros">
+      <div class="campo">
+        <label for="med1">Medicamento 1</label>
+        <select id="med1">
+          <option value="">Selecione um medicamento</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="med2">Medicamento 2</label>
+        <select id="med2">
+          <option value="">Selecione um medicamento</option>
+        </select>
+      </div>
+      <button class="limpar">Limpar Filtros</button>
+    </div>
+
+    <div class="tabela-wrapper">
+    <table class="tabela">
+      <div id="mensagem-nenhum-resultado" style="display: none; text-align: center; margin-top: 20px; padding: 16px; background-color: #fff3cd; border: 1px solid #facc15; border-radius: 8px; color: #92400e; font-weight: 600;">
+  ⚠️ Nenhuma informação disponível sobre essa interação no momento.
+</div>
+      <thead>
+        <tr>
+          <th>Medicamento 1</th>
+          <th>Medicamento 2</th>
+          <th>Severidade</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ibuprofeno</td>
+          <td>Dipirona</td>
+          <td><span class="tag severidade-perigosa media">Média</span></td>
+          <td><button class="detalhes"
+          data-desc="O uso concomitante de ibuprofeno (um anti-inflamatório não 
+          esteroidal) e dipirona (metamizol) pode aumentar o risco de efeitos adversos 
+          gastrointestinais e renais. Ambos os medicamentos têm propriedades analgésicas e 
+          antipiréticas, e seu uso combinado pode potencializar efeitos colaterais sem oferecer benefícios terapêuticos adicionais significativos. Estudos indicam que a combinação pode elevar o risco de toxicidade renal e gastrointestinal,especialmente em tratamentos prolongados ou em pacientes com predisposição a essas condições."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. Esta informação é apenas educativa.</strong></div>' 
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://go.drugbank.com/drugs/DB01050" target="_blank">Drugbank - Fluoxetina</a><br>
+                  <a href="https://go.drugbank.com/drugs/DB04817" target="_blank">Drugbank - Dipirona</a><br>
+                  <a href="https://www.researchgate.net/publication/262765244_Combined_Ibuprofen_and_Metamizole_treatment_-_Acute_renal_failure" target="_blank">ResearchGate - Estudo clínico</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Ibuprofeno</td>
+          <td>Paracetamol</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+          data-desc="Nenhuma interação medicamentosa foi encontrada entre 
+              ibuprofeno e paracetamol. No entanto, isso não significa necessariamente que nenhuma 
+              interação exista."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>' 
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=11-2735,1310-0" target="_blank">Drugbank - Paracetamol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Diclofenaco</td>
+          <td>Dipirona</td>
+          <td><span class="tag severidade-perigosa">Alta</span></td>
+          <td><button class="detalhes"
+          data-desc="A administração concomitante de diclofenaco e dipirona pode 
+                    aumentar o risco de efeitos adversos gastrointestinais e renais. Ambos os medicamentos 
+                    inibem a síntese de prostaglandinas, o que pode comprometer a proteção da mucosa 
+                    gástrica e a função renal. Estudos indicam que essa combinação pode levar a uma 
+                    diminuição dos níveis de glutationa e da atividade da glutationa peroxidase, aumentando o 
+                    estresse oxidativo nos tecidos."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>' 
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://go.drugbank.com/drugs/DB04817" target="_blank">Drugbank - Metamizole</a><br>
+                  <a href="https://www.medindia.net/drugs/drugs-interactions/metamizole.htm" target="_blank">Medindia - Metamizol</a><br>
+                  <a href="https://www.medindia.net/drugs/drugs-interactions/metamizole.htm" target="_blank">ResearchGate - glutationa</a>
+                  '>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Ibuprofeno</td>
+          <td>Amoxicilina</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+          data-desc=" Nenhuma interação medicamentosa foi encontrada entre 
+                      ibuprofeno e amoxicilina. No entanto, isso não significa necessariamente que nenhuma 
+                      interação exista."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>' 
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=187-0,1310-0" target="_blank">Drugs - Amoxicilina</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Meloxicam</td>
+          <td>Ciprofloxacino</td>
+          <td><span class="tag severidade-perigosa media">Média</span></td>
+          <td><button class="detalhes"
+          data-desc="O ciprofloxacino pode, raramente, causar efeitos adversos no 
+          sistema nervoso central, como tremores, movimentos musculares involuntários, ansiedade, 
+          confusão, depressão, alucinações ou convulsões. Quando combinado com medicamentos 
+          que também afetam o sistema nervoso central, como o meloxicam, esse risco pode ser 
+          aumentado."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=672-0,1549-0" target="_blank">Drugs - Meloxicam Ciprofloxacino</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Celecoxibe</td>
+          <td>Metronidazol</td>
+          <td><span class="tag severidade-perigosa media">Média</span></td>
+          <td><button class="detalhes"
+          data-desc=" O metronidazol pode aumentar os níveis sanguíneos de 
+              celecoxibe em alguns pacientes. Isso pode elevar o risco de efeitos adversos graves como 
+              inflamação, sangramento, úlceras, perfuração no trato gastrointestinal, infarto, AVC, 
+              hipertensão, retenção de líquidos, insuficiência cardíaca, problemas hepáticos e renais, 
+              anemia e reações cutâneas graves."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=560-0,1617-0" target="_blank">Drugs - Celecoxibe Metronidazol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Ibuprofeno</td>
+          <td>Omeprazol</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+            data-desc=" Não foram encontradas interações medicamentosas diretas entre 
+            ibuprofeno e omeprazol. No entanto, isso não significa que nenhuma interação exista."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=1310-0,1750-0" target="_blank">Drugs - Ibuprofeno Omeprazol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Diclonefaco</td>
+          <td>Omeprazol</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+            data-desc="Não foram encontradas interações medicamentosas diretas entre 
+            diclofenaco e omeprazol. No entanto, isso não significa que nenhuma interação exista."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=869-0,1750-0" target="_blank">Drugs - Diclofenaco Omeprazol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Meloxicam</td>
+          <td>Omeprazol</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+            data-desc="Não foram encontradas interações medicamentosas diretas entre 
+            meloxicam e omeprazol. No entanto, isso não significa necessariamente que nenhuma 
+            interação exista."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=1549-0,1750-0" target="_blank">Drugs - Meloxicam Omeprazol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Dipirona</td>
+          <td>Fluoxetina</td>
+          <td><span class="tag severidade-perigosa media">Média</span></td>
+          <td><button class="detalhes"
+            data-desc="A combinação de dipirona com fluoxetina pode aumentar o risco 
+            de sangramentos, especialmente gastrintestinais e intracranianos. Isso ocorre devido ao 
+            efeito antiplaquetário da fluoxetina, que pode ser potencializado pela dipirona. Além disso, 
+            há evidências de que a dipirona pode induzir enzimas hepáticas, como o CYP3A4, 
+            potencialmente reduzindo a concentração plasmática de antidepressivos como a fluoxetina, 
+            o que pode comprometer sua eficácia terapêutica."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://pubmed.ncbi.nlm.nih.gov/32652557/" target="_blank">PubMed - Metamizole</a><br>
+                  <a href="https://www.redalyc.org/journal/5704/570471461004/html/" target="_blank"> Redalyc - Uso de Antidepressivos</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Dipirona</td>
+          <td>Amoxicilina</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+            data-desc="Não foram identificadas interações farmacológicas diretas entre 
+            dipirona e amoxicilina. Ambos os medicamentos são frequentemente prescritos juntos para 
+            tratar infecções acompanhadas de dor ou febre. No entanto, é importante considerar que 
+            tanto a dipirona quanto a amoxicilina estão associadas a reações de hipersensibilidade. A 
+            administração concomitante pode aumentar o risco de reações alérgicas, incluindo o 
+            potencial desenvolvimento da síndrome de Kounis, uma condição rara que envolve reações 
+            alérgicas associadas a eventos cardíacos."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.medscape.com/viewarticle/753799_2" target="_blank">Medscape - Kounis Syndrome</a>'>Ver detalhes</button></td>              
+        </tr>
+
+         <tr>
+          <td>Dipirona</td>
+          <td>Ciprofloxacino</td>
+          <td><span class="tag severidade-perigosa media">Média</span></td>
+          <td><button class="detalhes"
+            data-desc="A coadministração de dipirona e ciprofloxacino pode aumentar o 
+            risco de efeitos adversos no sistema nervoso central, como convulsões. Isso ocorre devido 
+            à potencial atividade neuroexcitadora do ciprofloxacino, que pode ser intensificada pela 
+            dipirona. Além disso, há evidências de que a dipirona pode diminuir a taxa de excreção do 
+            ciprofloxacino, resultando em níveis séricos mais elevados do antibiótico, o que pode 
+            potencializar seus efeitos adversos."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.medindia.net/drugs/drugs-interactions/metamizole.htm" target="_blank">Medindia - Metamizole Interactions</a><br>
+                  <a href="https://go.drugbank.com/drugs/DB04817" target="_blank">DrugBank - Metamizole</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Ciclobenzaprina</td>
+          <td>Paracetamol</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+            data-desc=" Nenhuma interação medicamentosa foi encontrada entre 
+                ciclobenzaprina e paracetamol. No entanto, isso não significa necessariamente que 
+                nenhuma interação exista."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=11-2735,758-0" target="_blank">Drugs - Interacao entre Ciclobenzaprina e Paracetamol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Carisoprodol</td>
+          <td>Tramadol</td>
+          <td><span class="tag severidade-perigosa">Alta</span></td>
+          <td><button class="detalhes"
+            data-desc="O uso combinado de carisoprodol (relaxante muscular) com 
+                    tramadol (analgésico opioide) pode causar depressão do sistema nervoso central, levando a 
+                    efeitos graves como sedação profunda, depressão respiratória, coma e até morte. Também 
+                    pode haver prejuízo na coordenação motora, tontura e sonolência significativas."
+
+                    data-secundario='<strong>Recomendação: Essa combinação deve ser usada com cautela extrema, sob orientação 
+                    médica rigorosa. Não se deve consumir álcool ou outros depressores do SNC junto a esses 
+                    medicamentos</strong>.'   
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=527-0,2221-0" target="_blank">Drugs - Interacao entre Carisoprodol e Tramadol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Tizanidina</td>
+          <td>Ibuprofeno</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+            data-desc=" Nenhuma interação medicamentosa foi identificada entre 
+              tizanidina e ibuprofeno na base consultada. No entanto, isso não significa necessariamente 
+              que não exista interação."
+
+          data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+          Esta informação é apenas educativa.</strong></div>'   
+
+          data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=1310-0,2205-0" target="_blank">Drugs - Interacao entre Tizanidina e Ibuprofeno</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Ciprofloxacino</td>
+          <td>Tramadol</td>
+          <td><span class="tag severidade-perigosa">Alta</span></td>
+          <td><button class="detalhes"
+            data-desc="O Tramadol pode ocasionalmente causar convulsões, e a 
+              combinação com outros medicamentos que também têm esse potencial, como o 
+              Ciprofloxacino, pode aumentar significativamente esse risco. O risco é ainda maior em 
+              pacientes idosos, em abstinência de álcool ou drogas, com histórico de convulsões ou 
+              condições que afetam o sistema nervoso central (como tumores cerebrais ou traumas 
+              cranianos)."
+
+              data-secundario='<strong> Evite ou limite o uso de álcool durante o tratamento com esses 
+              medicamentos. Também é importante evitar atividades que exijam atenção mental, como 
+              dirigir ou operar máquinas, até saber como os medicamentos afetam você. Em alguns 
+              casos, pode ser necessário ajuste de dose, monitoramento frequente ou substituição de um 
+              dos medicamentos por alternativas mais seguras</strong>.'   
+
+              data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+              Esta informação é apenas educativa.</strong></div>'   
+
+              data-extra2='<strong>Fontes</strong>:<br>
+              <a href="https://www.drugs.com/interactions-check.php?drug_list=672-0,2221-17957" target="_blank">Drugs - Interacao entre Ciprofloxacino e Tramadol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Azitromicina</td>
+          <td>Tramadol</td>
+          <td><span class="tag severidade-perigosa media">Média</span></td>
+          <td><button class="detalhes"
+            data-desc="O uso de azitromicina em conjunto com tramadol pode aumentar 
+            o risco de arritmias cardíacas, um efeito raro, porém potencialmente grave e até fatal. O 
+            risco é maior em pacientes com síndrome do QT longo congênita, doenças cardíacas, 
+            distúrbios de condução elétrica no coração ou desequilíbrios eletrolíticos (como perda de 
+            potássio ou magnésio por diarreia ou vômito)."
+
+              data-secundario='<strong>Caso ocorram sintomas como tontura súbita, desmaio, falta de ar ou 
+              palpitações, é necessário procurar atendimento médico imediato. Informe sempre ao seu 
+              médico todos os medicamentos que estiver utilizando, inclusive vitaminas ou fitoterápicos</strong>.'
+
+              data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+              Esta informação é apenas educativa.</strong></div>'   
+
+              data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=300-0,2221-0" target="_blank">Drugs - Interacao entre Azitromicina e Tramadol</a>'>Ver detalhes</button></td>              
+        </tr>
+
+        <tr>
+          <td>Metronizadol</td>
+          <td>Paracetamol</td>
+          <td><span class="tag severidade-perigosa baixa">Baixa</span></td>
+          <td><button class="detalhes"
+            data-desc="Nenhuma interação medicamentosa foi encontrada entre 
+            metronizadol e paracetamol. No entanto, isso não significa necessariamente que nenhuma 
+            interação exista."
+
+              data-extra1='<div class="importante"><strong>Importante: Sempre consulte um profissional de saúde antes de combinar medicamentos. 
+              Esta informação é apenas educativa.</strong></div>'   
+
+              data-extra2='<strong>Fontes</strong>:<br>
+                  <a href="https://www.drugs.com/interactions-check.php?drug_list=11-0,1617-0" target="_blank">Drugs - Interacao entre Metronidazol e Paracetamol</a>'>Ver detalhes</button></td>              
+        </tr>
+      </tbody>
+    </table>
+</div>
+    <p class="rodape">Tabela de interações medicamentosas</p>
+  </div>
+
+  <div id="modal" class="modal">
+  <div class="modal-conteudo">
+    <button class="modal-close" onclick="document.getElementById('modal').style.display='none'">&times;</button>
+    <h3>Tabela de interações</h3>
+<p id="modal-texto"></p>
+<p id="modal-texto-secundario" style="margin-top: 10px;"></p>
+<p id="modal-texto-extra1" style="margin-top: 10px;"></p>
+<p id="modal-texto-extra2" style="margin-top: 10px;"></p>
+  </div>
+</div>
+
+  <script src="js/verificar-interacoes.js"></script>
+</body>
+</html>
